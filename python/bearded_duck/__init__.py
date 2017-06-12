@@ -46,7 +46,9 @@ async def _explain(beard_instance, msg):
         resp = await bot.listener.wait()
         # TODO figure out how to store the responses in the self.explain_table
         # for regurgitation
-        if 'I\'m done.' == resp['text']:
+        if resp['text'].endswith('?'):
+            await bot.sender.sendMessage(random.choice(CONFIG['question_responses']))
+        elif 'I\'m done.' == resp['text']:
             await bot.sender.sendMessage("Happy to help :)")
             return
         else:
